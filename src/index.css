@@ -1,0 +1,313 @@
+@import url("https://fonts.googleapis.com/css2?family=Titan+One&family=Nunito:wght@400;700;800;900&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --font-logo: "Titan One", "Nunito", system-ui, sans-serif;
+  --font-body: "Nunito", system-ui, sans-serif;
+  --color-poke-yellow: #ffcb05;
+  --color-poke-blue: #2a3b9c;
+  --color-poke-red: #ee1c25;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  overscroll-behavior: none;
+}
+
+body {
+  font-family: var(--font-body);
+  background: #0b1020;
+  color: #fff;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+img {
+  image-rendering: auto;
+}
+
+.pixel {
+  image-rendering: pixelated;
+}
+
+/* ---------- Pokémon style logo text ---------- */
+.poke-text {
+  font-family: var(--font-logo);
+  color: #ffcb05;
+  -webkit-text-stroke: 0.14em #2a3b9c;
+  paint-order: stroke fill;
+  text-shadow:
+    0 0.06em 0 #1b2470,
+    0 0.12em 0.1em rgba(0, 0, 0, 0.45);
+  letter-spacing: 0.01em;
+  line-height: 0.95;
+}
+
+.poke-text-sm {
+  font-family: var(--font-logo);
+  color: #ffcb05;
+  -webkit-text-stroke: 0.13em #2a3b9c;
+  paint-order: stroke fill;
+  text-shadow: 0 0.05em 0 #1b2470;
+}
+
+.poke-text-white {
+  font-family: var(--font-logo);
+  color: #fff;
+  -webkit-text-stroke: 0.13em #2a3b9c;
+  paint-order: stroke fill;
+  text-shadow: 0 0.05em 0 #1b2470;
+}
+
+/* ---------- Background ---------- */
+.arena-bg {
+  background:
+    radial-gradient(120% 90% at 50% -10%, #3b5bdb 0%, #1b2a6b 38%, #0b1020 78%),
+    #0b1020;
+}
+
+/* The uploaded channel picture, blurred, becomes the page backdrop. */
+.brand-backdrop {
+  position: absolute;
+  inset: -12%;
+  z-index: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: blur(34px) saturate(1.4) brightness(0.52);
+  transform: scale(1.14);
+  pointer-events: none;
+}
+.brand-backdrop::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(70% 55% at 50% 40%, rgba(8, 12, 32, 0.1) 0%, rgba(8, 12, 32, 0.6) 68%, rgba(6, 9, 24, 0.88) 100%),
+    linear-gradient(180deg, rgba(11, 16, 32, 0.55) 0%, rgba(11, 16, 32, 0.2) 34%, rgba(11, 16, 32, 0.78) 100%);
+}
+
+.arena-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 20% 15%, rgba(255, 255, 255, 0.12) 0 2px, transparent 3px),
+    radial-gradient(circle at 70% 60%, rgba(255, 255, 255, 0.09) 0 2px, transparent 3px);
+  background-size: 90px 90px, 130px 130px;
+  pointer-events: none;
+}
+
+/* ---------- Animations ---------- */
+@keyframes popIn {
+  0% {
+    transform: scale(0.4) rotate(-8deg);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.14) rotate(3deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+.anim-pop {
+  animation: popIn 0.42s cubic-bezier(0.22, 1.4, 0.4, 1) both;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(18px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.anim-slide {
+  animation: slideUp 0.35s cubic-bezier(0.2, 0.9, 0.3, 1) both;
+}
+
+@keyframes floaty {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-7px);
+  }
+}
+.anim-float {
+  animation: floaty 2.6s ease-in-out infinite;
+}
+
+@keyframes segPulse {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 0.92;
+  }
+}
+.seg-target {
+  animation: segPulse 0.75s ease-in-out infinite;
+}
+
+@keyframes ringPulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.85;
+  }
+  100% {
+    transform: scale(1.45);
+    opacity: 0;
+  }
+}
+.anim-ring-pulse {
+  animation: ringPulse 1.5s ease-out infinite;
+}
+
+@keyframes shine {
+  0% {
+    transform: translateX(-140%) rotate(18deg);
+  }
+  100% {
+    transform: translateX(240%) rotate(18deg);
+  }
+}
+.anim-shine::after {
+  content: "";
+  position: absolute;
+  top: -30%;
+  bottom: -30%;
+  width: 40%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.42), transparent);
+  animation: shine 3.4s ease-in-out infinite;
+}
+
+@keyframes scorePop {
+  0% {
+    transform: scale(1);
+  }
+  35% {
+    transform: scale(1.35);
+    filter: brightness(1.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.anim-score {
+  animation: scorePop 0.35s ease-out;
+}
+
+@keyframes wobble {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-9deg);
+  }
+  75% {
+    transform: rotate(9deg);
+  }
+}
+.anim-wobble {
+  animation: wobble 0.45s ease-in-out;
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.25;
+  }
+}
+.anim-blink {
+  animation: blink 1s steps(2, end) infinite;
+}
+
+@keyframes dangerPulse {
+  0%,
+  100% {
+    box-shadow: inset 0 0 0 0 rgba(239, 68, 68, 0);
+  }
+  50% {
+    box-shadow: inset 0 0 90px 12px rgba(239, 68, 68, 0.5);
+  }
+}
+.anim-danger {
+  animation: dangerPulse 0.7s ease-in-out infinite;
+}
+
+@keyframes riseFade {
+  0% {
+    transform: translate(-50%, 0) scale(0.7);
+    opacity: 0;
+  }
+  25% {
+    transform: translate(-50%, -18px) scale(1.15);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -90px) scale(1);
+    opacity: 0;
+  }
+}
+.anim-rise {
+  animation: riseFade 1.25s cubic-bezier(0.2, 0.8, 0.3, 1) both;
+}
+
+@keyframes flashOut {
+  from {
+    opacity: 0.9;
+  }
+  to {
+    opacity: 0;
+  }
+}
+.anim-flash {
+  animation: flashOut 0.45s ease-out both;
+}
+
+.btn-poke {
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform 0.12s cubic-bezier(0.3, 1.5, 0.5, 1),
+    filter 0.12s ease;
+}
+.btn-poke:active {
+  transform: translateY(2px) scale(0.97);
+}
+.btn-poke:hover {
+  filter: brightness(1.12);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+.no-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.22);
+  border-radius: 99px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .anim-float,
+  .anim-shine::after,
+  .seg-target {
+    animation: none;
+  }
+}
